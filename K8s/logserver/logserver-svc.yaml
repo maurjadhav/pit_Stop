@@ -1,0 +1,13 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: logserver-svc
+spec:
+  type: LoadBalancer
+  ports:
+  - targetPort: 5341
+    port: 80
+    protocol: TCP
+  selector:
+    app: logserver-app
