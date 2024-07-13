@@ -4,7 +4,7 @@ kind: Service
 metadata:
   name: mailserver-svc
 spec:
-  type: LoadBalancer
+  type: ClusterIp
   ports:
   - name: port1
     targetPort: 25

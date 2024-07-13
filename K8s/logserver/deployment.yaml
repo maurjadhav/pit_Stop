@@ -27,7 +27,7 @@ spec:
           resources:
             limits:
               cpu: 250m
-              memory: 128Mi
+              memory: 512Mi
           ports:
             - containerPort: 5341
               protocol: TCP

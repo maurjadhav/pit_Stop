@@ -4,7 +4,7 @@ kind: Service
 metadata:
   name: logserver-svc
 spec:
-  type: LoadBalancer
+  type: ClusterIp
   ports:
   - targetPort: 5341
     port: 80
