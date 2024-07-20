@@ -25,12 +25,13 @@ spec:
         image: pitstop/auditlogservice:1.0
         imagePullPolicy: IfNotPresent
         name: auditlogservice
-      restartPolicy: Always
-      livenessProbe:
+        livenessProbe:
         initialDelaySeconds: 20
         periodSeconds: 5
         successThreshold: 1
         failureThreshold: 2
         httpGet:
           port: 80
+      restartPolicy: Always
+      
 
