@@ -68,3 +68,15 @@ spec:
     targetPort: 5672
   selector:
     app: rabbitmq
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: rqconfig
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: azurefile-csi
+  resources:
+    requests:
+      storage: 1Gi
