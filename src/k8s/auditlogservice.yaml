@@ -26,12 +26,11 @@ spec:
         imagePullPolicy: IfNotPresent
         name: auditlogservice
       restartPolicy: Always
-      readinessProbe:
-        initialDelaySeconds: 3
+      livenessProbe:
+        initialDelaySeconds: 20
         periodSeconds: 5
         successThreshold: 1
         failureThreshold: 2
         httpGet:
-          path: '/'
           port: 80
 
