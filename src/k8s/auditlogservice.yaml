@@ -31,6 +31,7 @@ spec:
             successThreshold: 1
             failureThreshold: 2
             httpGet:
+              path: '/'
               port: 80
       restartPolicy: Always
       
