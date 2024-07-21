@@ -15,4 +15,5 @@ WORKDIR /app
 COPY --from=build-env /app/out .
 
 # Start
-ENTRYPOINT ["dotnet", "Pitstop.AuditlogService.dll"]
+#ENTRYPOINT ["dotnet", "Pitstop.AuditlogService.dll"]
+CMD [ "dotnet", "Pitstop.AuditlogService.dll" ]
