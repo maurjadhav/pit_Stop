@@ -15,4 +15,5 @@ WORKDIR /app
 COPY --from=build-env /app/out .
 
 # Start
-ENTRYPOINT ["dotnet", "Pitstop.InvoiceService.dll"]
+ENTRYPOINT ["dotnet"]
+CMD [ "Pitstop.InvoiceService.dll" ]
