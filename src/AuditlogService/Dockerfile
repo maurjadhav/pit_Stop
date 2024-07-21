@@ -1,20 +1,23 @@
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build-env
+# Use the .NET SDK image for building the application
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+
+# Set the working directory
 WORKDIR /app
 
-# Copy necessary files and restore as distinct layer
-COPY *.csproj ./
+# Copy the project file and restore dependencies
+COPY *.csproj .
 RUN dotnet restore
 
-# Copy everything else and build
-COPY . ./
+# Copy the rest of the application code
+COPY . .
+
+# Build the application
 RUN dotnet publish -c Release -o out --verbosity detailed
-#RUN dotnet publish -c Release -o out
 
-# Build runtime image
-FROM mcr.microsoft.com/dotnet/runtime:8.0
+# Create the final runtime image
+FROM mcr.microsoft.com/dotnet/aspnet:7.0
 WORKDIR /app
-COPY --from=build-env /app/out .
+COPY --from=build /app/out .
 
-# Start
-#ENTRYPOINT ["dotnet", "Pitstop.AuditlogService.dll"]
-CMD [ "dotnet", "Pitstop.AuditlogService.dll" ]
+# Set the entry point for the application
+ENTRYPOINT ["dotnet", "Pitstop.AuditlogService.dll"]
