@@ -31,8 +31,6 @@
     <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
   </ItemGroup>
 
-</Project>
-
 
   <ItemGroup>
     <Content Include="Assets\banner.jpg">
