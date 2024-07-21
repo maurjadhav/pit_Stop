@@ -1,18 +1,18 @@
-# Build stage
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-env
+FROM pitstop-dotnet-sdk-base:1.0 AS build-env
 WORKDIR /app
 
-# Copy the .csproj file and restore as distinct layers
-COPY InvoiceService.csproj ./
+# Copy necessary files and restore as distinct layer
+COPY *.csproj ./
 RUN dotnet restore
 
-# Copy the remaining files and build the project
+# Copy everything else and build
 COPY . ./
-RUN dotnet publish -c Release -o /app/out
+RUN dotnet publish -c Release -o out
 
-# Runtime stage
-FROM mcr.microsoft.com/dotnet/aspnet:8.0
+# Build runtime image
+FROM pitstop-dotnet-runtime-base:1.0
 WORKDIR /app
 COPY --from=build-env /app/out .
 
-ENTRYPOINT ["dotnet", "InvoiceService.dll"]
+# Start
+ENTRYPOINT ["dotnet", "Pitstop.InvoiceService.dll"]
