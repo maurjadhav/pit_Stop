@@ -1,14 +1,18 @@
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-env
+# building nop application
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+#git cloning
+RUN mkdir published
+RUN dotnet publish  -c Release -o published/ AuditlogService.csproj
+
+#building image for the container to run
+FROM mcr.microsoft.com/dotnet/aspnet:8.0
+LABEL author="practice"
+LABEL description="Runs the nopCommerce application"
+LABEL project="practice-nopCommerce"
+# creating user and hom dir
+RUN useradd -d /app -m -s /bin/bash dotnet
+USER dotnet
 WORKDIR /app
-
-# Copy everything else and build
-RUN dotnet publish -c Release  AuditlogService.csproj -o out
-
-# Build runtime image
-FROM mcr.microsoft.com/dotnet/runtime:8.0
-WORKDIR /app
-COPY --from=build-env /app/out .
-
-# Start
+COPY --from=build --chown=dotnet:dotnet published/ /napp
 ENTRYPOINT ["dotnet"]
 CMD [ "Pitstop.AuditlogService.dll" ]
