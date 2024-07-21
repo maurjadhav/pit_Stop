@@ -48,4 +48,3 @@ spec:
   selector:
     app: workshopmanagementapi
   type: NodePort
----
